@@ -4,13 +4,16 @@ E-Commerce website
 Problem Overview
 You are tasked with developing an e-commerce website using React.js. The website should include the
 following features:
+
 ▪ Product pages
 ▪ Product information pages
 ▪ An add to cart functionality
 ▪ Cart summary
+
 Your implementation should showcase your understanding in working with React components, managing
 props and state effectively, and demonstrating knowledge of state management techniques.
 Requirements:
+
 A. Product Pages: Implement product pages where users can view details about each product (just
 used an array of at least ten products).
 B. Product Information Display: Each product page should display relevant information about the
