@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 
 const Product = ({ name, description, price, addToCart }) => {
