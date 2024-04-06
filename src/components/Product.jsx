@@ -1,4 +1,4 @@
-Product.jsx;
+
 
 import React from 'react';
 

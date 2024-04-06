@@ -13,7 +13,7 @@ const ProductPage = () => {
       id: 1,
       name: 'Ferrari 488 GTB',
       description: 'The Ferrari 488 GTB is a mid-engine sports car produced by the Italian automobile manufacturer Ferrari.',
-      price: 300000, // Price in dollars
+      price: 300000,
     },
     {
       id: 2,
