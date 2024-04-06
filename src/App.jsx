@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Product from './components/Product.jsx';
 import AddToCartButton from './components/AddToCartButton.jsx';
 import CartSummary from './components/CartSummary.jsx';
+import './App.css';
 
 const ProductPage = () => {
   const [cartItems, setCartItems] = useState([]);
