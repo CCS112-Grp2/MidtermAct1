@@ -1,6 +1,11 @@
-import { useState } from 'react'
+import React, { useState } from 'react';
+import Product from './components/Product.jsx';
+import AddToCartButton from './components/AddToCartButton.jsx';
+import CartSummary from './components/CartSummary.jsx';
 
-function App() {
+const ProductPage = () => {
+  const [cartItems, setCartItems] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   const products = [
     {
@@ -64,12 +69,32 @@ function App() {
       price: 200000,
     },
   ];
-  
-  return (
-    <>
-      
-    </>
-  )
-}
 
-export default App
+  const addToCart = (product) => {
+    setCartItems([...cartItems, product]);
+    setTotalPrice(totalPrice + product.price);
+  };
+
+  return (
+    <div className="product-page">
+      <header>
+        <h1>Welcome to our Car Store</h1>
+      </header>
+      <CartSummary cartItems={cartItems} totalPrice={totalPrice} />
+      <div className="products">
+        {products.map(product => (
+          <div key={product.id}>
+            <Product
+              name={product.name}
+              description={product.description}
+              price={product.price}
+            />
+            <AddToCartButton onClick={() => addToCart(product)} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default ProductPage;
