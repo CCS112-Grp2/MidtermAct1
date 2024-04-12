@@ -1,0 +1,72 @@
+.cart-summary {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  max-height: 300px; /* Max height to enable scrolling */
+  overflow-y: auto; /* Add scrollbar when content exceeds height */
+  position: relative;
+  transition: height 0.3s ease; /* Add transition for smooth height change */
+  display: flex;
+  flex-direction: column; /* Arrange children in a column */
+}
+
+.cart-summary.minimized {
+  height: 75px; /* Minimized height */
+  padding: 0; /* Remove padding when minimized */
+}
+
+.cart-summary h2 {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.cart-summary ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0; /* Remove default margin */
+}
+
+.cart-summary li {
+  margin-bottom: 10px;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.cart-summary .footer {
+  background-color: rgba(255, 255, 255, 0.5); /* Background color with opacity */
+  padding: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center; /* Center align the total */
+  position: sticky; /* Stick the footer */
+  bottom: 0; /* Stick it to the bottom */
+}
+
+.cart-summary .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.cart-summary .minimize-btn,
+.cart-summary .maximize-btn {
+  background-color: #ccc;
+  border: none;
+  padding: 8px 16px; /* Increase padding for better button appearance */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Add transition for smoother hover effect */
+}
+
+.cart-summary .minimize-btn:hover,
+.cart-summary .maximize-btn:hover {
+  background-color: #aaa; /* Darken the background color on hover */
+}
+
+.cart-summary .maximize-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}

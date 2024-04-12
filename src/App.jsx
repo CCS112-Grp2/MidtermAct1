@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import Product from './components/Product.jsx';
-import AddToCartButton from './components/AddToCartButton.jsx';
-import CartSummary from './components/CartSummary.jsx';
+import Product from './components/Product/Product.jsx';
+import AddToCartButton from './components/AddtoCartbutton/AddToCartButton.jsx';
+import CartSummary from './components/CartSummary/CartSummary.jsx';
+import './App.css';
 
 const ProductPage = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -13,6 +14,7 @@ const ProductPage = () => {
       name: 'Ferrari 488 GTB',
       description: 'The Ferrari 488 GTB is a mid-engine sports car produced by the Italian automobile manufacturer Ferrari.',
       price: 300000,
+      imageSrc: 'https://www.topgear.com/sites/default/files/cars-car/carousel/2015/12/li3020386_u6a1613488.jpg?w=211&h=119', // Placeholder image URL
     },
     {
       id: 2,
@@ -80,14 +82,16 @@ const ProductPage = () => {
       <header>
         <h1>Welcome to our Car Store</h1>
       </header>
+      <h2>Cart Summary</h2>
       <CartSummary cartItems={cartItems} totalPrice={totalPrice} />
       <div className="products">
         {products.map(product => (
-          <div key={product.id}>
+          <div key={product.id} className="product-card">
             <Product
               name={product.name}
               description={product.description}
               price={product.price}
+              imageSrc={product.imageSrc}
             />
             <AddToCartButton onClick={() => addToCart(product)} />
           </div>
