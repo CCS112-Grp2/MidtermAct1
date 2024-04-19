@@ -1,4 +1,7 @@
+<<<<<<< Updated upstream
 // ViewCartButton.jsx
+=======
+>>>>>>> Stashed changes
 import React from 'react';
 import { Button } from 'react-bootstrap';
 

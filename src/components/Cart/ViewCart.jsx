@@ -24,4 +24,8 @@ const ViewCart = ({ cartItems, removeFromCart }) => {
   );
 };
 
+<<<<<<< Updated upstream
 export default ViewCart;
+=======
+export default ViewCart;
+>>>>>>> Stashed changes
