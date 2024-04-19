@@ -1,0 +1,9 @@
+/* CSS for product card hover effect */
+.product-card {
+    transition: transform 0.3s;
+  }
+  
+  .product-card:hover {
+    transform: translateY(-5px); /* Adjust the value to change the hover effect */
+  }
+  
