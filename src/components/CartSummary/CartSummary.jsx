@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
+import { Button, ListGroup } from 'react-bootstrap';
 import './CartSummary.css';
 
 const CartSummary = ({ cartItems }) => {
@@ -19,30 +20,33 @@ const CartSummary = ({ cartItems }) => {
 
   return (
     <div className={`cart-summary ${isMinimized ? 'minimized' : ''}`} ref={footerRef}>
+      <div className="add-to-cart-summary">
+        <p>{cartItems.length} Item(s) in Cart</p>
+      </div>
       {!isMinimized && (
         <>
           <div className="header" ref={headerRef}>
             <h2>Cart Summary</h2>
-            <button className="minimize-btn" onClick={toggleMinimize}>
+            <Button variant="secondary" onClick={toggleMinimize}>
               Minimize
-            </button>
+            </Button>
           </div>
-          <ul>
+          <ListGroup>
             {cartItems.map((item, index) => (
-              <li key={index}>
+              <ListGroup.Item key={index}>
                 {item.name} - ${item.price}
-              </li>
+              </ListGroup.Item>
             ))}
-          </ul>
+          </ListGroup>
+          <div className="footer">
+            Total: ${total}
+          </div>
         </>
       )}
-      <div className="footer">
-        Total: ${total}
-      </div>
       {isMinimized && (
-        <button className="maximize-btn" onClick={toggleMinimize}>
+        <Button variant="secondary" onClick={toggleMinimize}>
           Maximize
-        </button>
+        </Button>
       )}
     </div>
   );

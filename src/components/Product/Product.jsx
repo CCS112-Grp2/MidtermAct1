@@ -1,14 +1,18 @@
 import React from 'react';
+import { Card, Button } from 'react-bootstrap';
 import './Product.css';
 
 const Product = ({ name, description, price, imageSrc, addToCart }) => {
   return (
-    <div className="product">
-      <h3>{name}</h3>
-      <img src={imageSrc} alt={name} />
-      <p>{description}</p>
-      <p className="price">${price}</p>
-    </div>
+    <Card className="product">
+      <Card.Img variant="top" src={imageSrc} alt={name} />
+      <Card.Body>
+        <Card.Title>{name}</Card.Title>
+        <Card.Text>{description}</Card.Text>
+        <Card.Text className="price">${price}</Card.Text>
+        <Button variant="primary" onClick={addToCart}>Add to Cart</Button>
+      </Card.Body>
+    </Card>
   );
 };
 

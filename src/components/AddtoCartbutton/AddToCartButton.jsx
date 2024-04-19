@@ -1,11 +1,10 @@
 import React from 'react';
-import './AddtoCartButton.css';
+import './AddToCartButton.css';
+import { Button } from 'react-bootstrap';
 
 const AddToCartButton = ({ onClick }) => {
   return (
-    <button className="add-to-cart-btn" onClick={onClick}>
-      Add to Cart
-    </button>
+    <Button className="add-to-cart-btn" onClick={onClick}>Add to Cart</Button>
   );
 };
 
