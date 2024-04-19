@@ -1,5 +1,5 @@
 import React from 'react';
-import './AddToCartButton.css';
+import './AddtoCartButton.css';
 import { Button } from 'react-bootstrap';
 
 const AddToCartButton = ({ onClick }) => {

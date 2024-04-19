@@ -9,6 +9,7 @@
   display: flex;
   flex-direction: column; /* Arrange children in a column */
   background-color: rgb(192, 105, 6); /* Updated background color */
+  width: 100%;
 }
 
 .cart-summary.minimized {
