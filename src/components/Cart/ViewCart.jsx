@@ -1,11 +1,12 @@
 import React from 'react';
 import { Button, ListGroup, Container, Row, Col } from 'react-bootstrap';
 
+// ViewCart component to display the items in the cart
 const ViewCart = ({ cartItems, removeFromCart }) => {
   return (
     <Container className="view-cart">
       {cartItems.length === 0 ? (
-        <p className="italic">Your cart is empty</p>
+        <p className="italic">Your cart is currently empty.</p>
       ) : (
         <ListGroup>
           {cartItems.map((item, index) => (
