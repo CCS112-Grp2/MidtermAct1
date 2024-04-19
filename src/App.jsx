@@ -1,4 +1,3 @@
-// App.jsx
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -17,7 +16,7 @@ function App() {
           <Route path="/products" element={<ProductPage />} />
         </Routes>
         <footer className="footer">
-          <p>&copy; 2024 Your Store. All rights reserved.</p>
+          <p>&copy; 2024 GGGHI Car Dealer. All rights reserved.</p>
         </footer>
       </div>
     </Router>

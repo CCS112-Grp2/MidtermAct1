@@ -1,12 +1,10 @@
-// ProductPage.jsx
 import React, { useState } from 'react';
 import Product from '../components/Product/Product.jsx';
 import CartSummary from '../components/Cart/CartSummary.jsx';
 import ViewCart from '../components/Cart/ViewCart.jsx';
 import ViewCartButton from '../components/Cart/ViewCartButton.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Navbar, Container, Row, Col, Form, Button } from 'react-bootstrap';
-import { RiShoppingCart2Line } from 'react-icons/ri'; // Importing react-icons
+import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 
 // Separate product data for better organization
 import { products } from '../data/products.jsx'; 
@@ -45,22 +43,21 @@ const ProductPage = () => {
         <Row>
           <Col xs={3} className="p-3 bg-light"> {/* Sidebar column */}
             <div className="sticky-top">
-              <h2 className="mb-3">View Cart</h2> {/* Add margin between title and button */}
+              <CartSummary cartItems={cartItems} />
+              <div className="mb-3"></div> {/* Add margin */}
               <ViewCartButton onClick={toggleShowCart} />
               {showCart && (
                 <div className="view-cart mt-3" style={{ maxHeight: '300px', overflowY: 'auto' }}>
                   <ViewCart cartItems={cartItems} removeFromCart={removeFromCart} />
                 </div>
               )}
-              <div className="mb-3"></div> {/* Add margin below the cart */}
-              <CartSummary cartItems={cartItems} />
             </div>
           </Col>
           <Col xs={9}> {/* Main content column */}
             <div className="product-page container">
               <header>
-                <h1 className="text-center mb-4"></h1>
-                <div className="d-flex justify-content-end mb-4"> {/* Align search bar to the right */}
+                <h1 className="text-center mb-4">AVAILABLE CARS</h1>
+                <div className="d-flex justify-content-center mb-4">
                   <Form className="d-flex">
                     <Form.Control
                       type="text"
