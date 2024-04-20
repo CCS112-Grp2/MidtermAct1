@@ -4,7 +4,7 @@ import CartSummary from '../components/Cart/CartSummary.jsx';
 import ViewCart from '../components/Cart/ViewCart.jsx';
 import ViewCartButton from '../components/Cart/ViewCartButton.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button, Alert } from 'react-bootstrap'; // Import Alert from react-bootstrap
 
 // Separate product data for better organization
 import { products } from '../data/products.jsx'; 
@@ -14,6 +14,8 @@ const ProductPage = () => {
   const [showCart, setShowCart] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  const [showAlert, setShowAlert] = useState(false); // State for showing alert
+  const [soldItems, setSoldItems] = useState([]); // State for sold items
 
   const addToCart = (product) => {
     setCartItems([...cartItems, product]);
@@ -37,6 +39,19 @@ const ProductPage = () => {
     setSearchResults(results);
   };
 
+  const checkout = () => {
+    setSoldItems(cartItems); // Store sold items
+    setCartItems([]); // Clear cart
+    setShowAlert(true); // Show alert
+    setTimeout(() => {
+      setShowAlert(false); // Hide alert after 3 seconds
+    }, 3000);
+  };
+
+  const calculateTotalPrice = () => {
+    return soldItems.reduce((total, item) => total + item.price, 0);
+  };
+
   return (
     <>
       <Container fluid>
@@ -49,6 +64,7 @@ const ProductPage = () => {
               {showCart && (
                 <div className="view-cart mt-3" style={{ maxHeight: '300px', overflowY: 'auto' }}>
                   <ViewCart cartItems={cartItems} removeFromCart={removeFromCart} />
+                  <Button onClick={checkout} variant="primary" className="mt-3">Checkout</Button> {/* Add checkout button */}
                 </div>
               )}
             </div>
@@ -100,6 +116,19 @@ const ProductPage = () => {
           </Col>
         </Row>
       </Container>
+      {showAlert && (
+        <Alert variant="success" className="position-fixed top-50 start-50 translate-middle">
+          <div>
+            <p>Sold items:</p>
+            <ul>
+              {soldItems.map(item => (
+                <li key={item.id}>{item.name} - ${item.price}</li>
+              ))}
+            </ul>
+            <p>Total Price: ${calculateTotalPrice()}</p>
+          </div>
+        </Alert>
+      )}
     </>
   );
 };
