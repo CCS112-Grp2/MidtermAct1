@@ -6,8 +6,8 @@ const CartSummary = ({ cartItems }) => {
 
   // Calculate total whenever cartItems change
   useEffect(() => {
-    const totalAmount = cartItems.reduce((acc, item) => acc + item.price, 0);
-    setTotalPrice(totalAmount);
+    const totalAmount = cartItems.reduce((acc, item) => acc + parseFloat(item.price), 0);
+    setTotalPrice(totalAmount.toFixed(2)); // Format total price to two decimal places
   }, [cartItems]);
 
   return (

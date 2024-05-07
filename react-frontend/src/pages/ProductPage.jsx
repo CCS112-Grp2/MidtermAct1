@@ -5,7 +5,6 @@ import ViewCart from '../components/Cart/ViewCart.jsx';
 import ViewCartButton from '../components/Cart/ViewCartButton.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col, Form, Button, Alert } from 'react-bootstrap';
-// Import Alert from react-bootstrap
 
 const ProductPage = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -13,15 +12,14 @@ const ProductPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [showAlert, setShowAlert] = useState(false);
-  const [soldItems, setSoldItems] = useState([]);
 
   useEffect(() => {
     // Fetch product data from the API when the component mounts
-    fetch('/api/products')
+    fetch('http://localhost:8000/api/products')
       .then(response => response.json())
-      .then(data => setSearchResults(data)) // Assuming the response is an array of products
+      .then(data => setSearchResults(data))
       .catch(error => console.error('Error fetching products:', error));
-  }, []); // Empty dependency array to only run the effect once
+  }, []);
 
   const addToCart = (product) => {
     setCartItems([...cartItems, product]);
@@ -38,24 +36,19 @@ const ProductPage = () => {
   };
 
   const handleSearch = () => {
-    // Perform search logic here
-    const results = products.filter(product =>
+    const results = searchResults.filter(product =>
       product.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
     setSearchResults(results);
   };
 
   const checkout = () => {
-    setSoldItems(cartItems); // Store sold items
-    setCartItems([]); // Clear cart
-    setShowAlert(true); // Show alert
+    // Show alert and clear cart after a delay
+    setShowAlert(true);
     setTimeout(() => {
-      setShowAlert(false); // Hide alert after 3 seconds
+      setShowAlert(false);
+      setCartItems([]);
     }, 3000);
-  };
-
-  const calculateTotalPrice = () => {
-    return soldItems.reduce((total, item) => total + item.price, 0);
   };
 
   return (
@@ -63,31 +56,21 @@ const ProductPage = () => {
       <Container fluid>
         <Row>
           <Col xs={3} className="p-3 bg-light">
-            {/* Sidebar column */}
             <div className="sticky-top">
               <CartSummary cartItems={cartItems} />
               <div className="mb-3"></div>
-              {/* Add margin */}
               <ViewCartButton onClick={toggleShowCart} />
               {showCart && (
-                <div
-                  className="view-cart mt-3"
-                  style={{ maxHeight: '300px', overflowY: 'auto' }}
-                >
-                  <ViewCart
-                    cartItems={cartItems}
-                    removeFromCart={removeFromCart}
-                  />
+                <div className="view-cart mt-3" style={{ maxHeight: '300px', overflowY: 'auto' }}>
+                  <ViewCart cartItems={cartItems} removeFromCart={removeFromCart} />
                   <Button onClick={checkout} variant="primary" className="mt-3">
                     Checkout
                   </Button>
-                  {/* Add checkout button */}
                 </div>
               )}
             </div>
           </Col>
           <Col xs={9}>
-            {/* Main content column */}
             <div className="product-page container">
               <header>
                 <h1 className="text-center mb-4">AVAILABLE CARS</h1>
@@ -129,13 +112,8 @@ const ProductPage = () => {
       {showAlert && (
         <Alert variant="success" className="position-fixed top-50 start-50 translate-middle">
           <div>
-            <p>Sold items:</p>
-            <ul>
-              {soldItems.map(item => (
-                <li key={item.id}>{item.name} - ${item.price}</li>
-              ))}
-            </ul>
-            <p>Total Price: ${calculateTotalPrice()}</p>
+            <p>Checkout successful!</p>
+            <CartSummary cartItems={cartItems} />
           </div>
         </Alert>
       )}
