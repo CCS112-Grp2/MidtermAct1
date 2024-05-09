@@ -1,15 +1,4 @@
-.cart-summary-wrapper {
-    position: sticky;
-    bottom: 0;
-    width: 100%;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-
-  .cart-summary {
-    position: fixed;
-    top: 50%;
-    left: 5px; /* Adjust as needed */
-    transform: translateY(-50%);
-    z-index: 1000; /* Ensure it's above other content */
-  } 
+/* Add this to your CSS file */
+.modal-dialog.custom-modal {
+  max-width: 70% !important; /* Adjust the width as needed */
+}

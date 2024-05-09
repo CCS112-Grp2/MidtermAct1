@@ -1,8 +1,15 @@
 import React from 'react';
-import { Button, ListGroup, Container, Row, Col } from 'react-bootstrap';
+import { Button, ListGroup, Container, Form } from 'react-bootstrap';
 
-// ViewCart component to display the items in the cart
-const ViewCart = ({ cartItems, removeFromCart }) => {
+const ViewCart = ({ cartItems, removeFromCart, updateQuantity }) => {
+  const handleQuantityChange = (index, newQuantity) => {
+    // Ensure quantity stays at 1 or above
+    if (newQuantity <= 0) {
+      newQuantity = 1;
+    }
+    updateQuantity(index, newQuantity);
+  };
+
   return (
     <Container className="view-cart">
       {cartItems.length === 0 ? (
@@ -10,13 +17,23 @@ const ViewCart = ({ cartItems, removeFromCart }) => {
       ) : (
         <ListGroup>
           {cartItems.map((item, index) => (
-            <ListGroup.Item key={index}>
-              <Row className="align-items-center">
-                <Col>{item.name} - ${item.price}</Col>
-                <Col xs="auto">
-                  <Button variant="danger" onClick={() => removeFromCart(index)}>Remove</Button>
-                </Col>
-              </Row>
+            <ListGroup.Item key={index} style={{ display: 'flex', flexDirection: 'column' }}>
+              <div>
+                <div>{item.name}</div>
+                <div>Price: ${parseFloat(item.price).toFixed(2)}</div>
+                <div>Total Price: ${(item.price * item.quantity).toFixed(2)}</div>
+              </div>
+              <div className="d-flex align-items-center">
+                <Form.Control
+                  type="number"
+                  min={1}
+                  value={item.quantity}
+                  onChange={(e) => handleQuantityChange(index, parseInt(e.target.value))}
+                  placeholder="1"
+                  className="form-control-sm"
+                />
+                <Button variant="danger" onClick={() => removeFromCart(index)} className="ms-2">Remove</Button>
+              </div>
             </ListGroup.Item>
           ))}
         </ListGroup>

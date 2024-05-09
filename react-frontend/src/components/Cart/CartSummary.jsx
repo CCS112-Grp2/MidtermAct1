@@ -4,10 +4,9 @@ import { Badge } from 'react-bootstrap';
 const CartSummary = ({ cartItems }) => {
   const [totalPrice, setTotalPrice] = useState(0);
 
-  // Calculate total whenever cartItems change
   useEffect(() => {
-    const totalAmount = cartItems.reduce((acc, item) => acc + parseFloat(item.price), 0);
-    setTotalPrice(totalAmount.toFixed(2)); // Format total price to two decimal places
+    const totalAmount = cartItems.reduce((acc, item) => acc + (parseFloat(item.price) * item.quantity), 0);
+    setTotalPrice(totalAmount.toFixed(2));
   }, [cartItems]);
 
   return (
