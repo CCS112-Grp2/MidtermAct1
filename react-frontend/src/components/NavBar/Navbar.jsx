@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { RiHome2Line, RiStoreLine } from 'react-icons/ri';
-import './css/Navbar.css';
+import './Navbar.css';
 
 const Navbar = () => {
 
