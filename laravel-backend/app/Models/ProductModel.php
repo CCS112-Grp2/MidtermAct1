@@ -9,4 +9,12 @@ class ProductModel extends Model
 {
     protected $table = 'tblproducts';
 
+    protected $fillable = [
+        'name',
+        'description',
+        'price',
+        'imageSrc',
+        // Add other attributes as needed
+    ];
+
 }

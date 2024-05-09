@@ -2,17 +2,9 @@ import React from 'react';
 import { Button, ListGroup, Container, Form } from 'react-bootstrap';
 
 const ViewCart = ({ cartItems, removeFromCart, updateQuantity }) => {
-  const handleQuantityChange = (index, newQuantity) => {
-    // Ensure quantity stays at 1 or above
-    if (newQuantity <= 0) {
-      newQuantity = 1;
-    }
-    updateQuantity(index, newQuantity);
-  };
-
   return (
     <Container className="view-cart">
-      {cartItems.length === 0 ? (
+      {cartItems && cartItems.length === 0 ? (
         <p className="italic">Your cart is currently empty.</p>
       ) : (
         <ListGroup>
@@ -21,14 +13,14 @@ const ViewCart = ({ cartItems, removeFromCart, updateQuantity }) => {
               <div>
                 <div>{item.name}</div>
                 <div>Price: ${parseFloat(item.price).toFixed(2)}</div>
-                <div>Total Price: ${(item.price * item.quantity).toFixed(2)}</div>
+                <div>Total Price: {(item.price * item.quantity).toFixed(2)}</div>
               </div>
               <div className="d-flex align-items-center">
                 <Form.Control
                   type="number"
                   min={1}
                   value={item.quantity}
-                  onChange={(e) => handleQuantityChange(index, parseInt(e.target.value))}
+                  onChange={(e) => updateQuantity(index, parseInt(e.target.value))}
                   placeholder="1"
                   className="form-control-sm"
                 />

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios'; // Import Axios
+import axios from 'axios';
 import Product from '../components/Product/Product.jsx';
 import CartSummary from '../components/Cart/CartSummary.jsx';
 import ViewCart from '../components/Cart/ViewCart.jsx';
@@ -31,9 +31,48 @@ const ProductPage = () => {
   }, []);
 
   const addToCart = (product) => {
-    setCartItems([...cartItems, { ...product, quantity: 1 }]);
+    // Check if the product is already in the cart
+    const existingItemIndex = cartItems.findIndex(item => item.id === product.id);
+  
+    if (existingItemIndex !== -1) {
+      // If the product is already in the cart, increase its quantity
+      const updatedCartItems = [...cartItems];
+      updatedCartItems[existingItemIndex].quantity += 1;
+      setCartItems(updatedCartItems);
+    } else {
+      // If the product is not in the cart, add it with quantity 1
+      fetch('http://localhost:8000/api/cart/add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          productId: product.id,
+          quantity: 1
+        })
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to add product to cart');
+        }
+        return response.json();
+      })
+      .then(data => {
+        if (data && data.message === 'Product added to cart successfully') {
+          console.log('Product added to cart successfully');
+          // Update the cart items state here
+          setCartItems(prevItems => [...prevItems, { ...product, quantity: 1 }]);
+        } else {
+          console.error('Unexpected response from server:', data.message);
+        }
+      })
+      .catch(error => {
+        console.error('Error adding product to cart:', error.message);
+      });
+    }
   };
-
+  
+  
   const removeFromCart = (index) => {
     const newCartItems = [...cartItems];
     newCartItems.splice(index, 1);
