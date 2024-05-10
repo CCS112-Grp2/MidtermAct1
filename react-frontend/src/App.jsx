@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from './components/NavBar/Navbar';
 import Home from './pages/HomePage';
 import ProductPage from './pages/ProductPage';
+import RegistrationPage from './pages/RegistrationPage'; // Import the new RegistrationPage component
 import Login from './pages/Login';
 import './css/App.css';
 
@@ -36,6 +37,7 @@ function App() {
           ) : (
             <Route path="/login" element={<Navigate to="/" />} />
           )}
+          <Route path="/register" element={<RegistrationPage />} /> {/* Route to the RegistrationPage component */}
         </Routes>
         <footer className="footer">
           <p>&copy; 2024 GGGHI Car Dealer. All rights reserved.</p>

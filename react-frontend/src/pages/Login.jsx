@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom'; // Import only Link, as Navigate is not used
 import '../css/Login.css';
-import RegistrationForm from './Registration';
 
 const Login = ({ onLogin, authenticated }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
   const [loginError, setLoginError] = useState(false);
-  const [showRegisterForm, setShowRegisterForm] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,8 +40,8 @@ const Login = ({ onLogin, authenticated }) => {
       <div className="row justify-content-center">
         <div className="col-md-6">
           <div className="card">
-            <div className="card-header">Login</div>
-            <div className="card-body" style={{ maxHeight: 'calc(100vh - 300px)', overflowY: 'auto' }}>
+            <div className="card-header d-flex justify-content-center">Login</div>
+            <div className="card-body">
               {loginError && (
                 <div className="alert alert-danger" role="alert">
                   Login failed. Please try again.
@@ -75,7 +74,8 @@ const Login = ({ onLogin, authenticated }) => {
                   </div>
                   <div className="d-grid mb-5">
                     <button type="submit" className="btn btn-primary">Login</button>
-                    <button type="button" className="btn btn-link" onClick={() => setShowRegisterForm(true)}>Register</button>
+                    <p className="d-flex justify-content-center">Create Account</p>
+                    <Link to="/register" className="btn btn-link">Register</Link>
                   </div>
                 </form>
               )}
@@ -83,7 +83,6 @@ const Login = ({ onLogin, authenticated }) => {
           </div>
         </div>
       </div>
-      {showRegisterForm && <RegistrationForm onRegister={() => setShowRegisterForm(false)} />}
     </div>
   );
 };
