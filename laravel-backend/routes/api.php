@@ -19,6 +19,7 @@ Route::post('login', [ApiController::class, 'login']);
 Route::group(["middleware" => ["auth:sanctum"]], function () {
     Route::get('profile', [ApiController::class, 'profile']);
 
+<<<<<<< Updated upstream
     Route::get('products', [ProductController::class, 'index']);
 
     Route::get('logout', [ApiController::class, 'logout']);
@@ -27,3 +28,9 @@ Route::group(["middleware" => ["auth:sanctum"]], function () {
 
     Route::post('checkout', [CheckoutController::class, 'store']);
 });
+=======
+Route::post('/cart/remove', [CartController::class, 'removeFromCart']);
+
+Route::post('/cart/update', [CartController::class, 'updateCart']);
+
+>>>>>>> Stashed changes

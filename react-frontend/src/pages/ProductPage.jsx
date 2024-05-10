@@ -63,15 +63,48 @@ const ProductPage = () => {
   };
   
   const removeFromCart = (index) => {
-    const newCartItems = [...cartItems];
-    newCartItems.splice(index, 1);
-    setCartItems(newCartItems);
+    const productId = cartItems[index].id;
+    // Remove the product from the cart on the server side
+    axios.post('http://localhost:8000/api/cart/remove', {
+      productId: productId
+    })
+    .then(response => {
+      if (response.data.message === 'Product removed from cart successfully') {
+        console.log("removed");
+        // If product removal is successful, update the cart items state
+        const updatedCartItems = [...cartItems];
+        updatedCartItems.splice(index, 1);
+        setCartItems(updatedCartItems);
+      } else {
+        throw new Error('Unexpected response from server');
+      }
+    })
+    .catch(error => {
+      console.error('Error removing product from cart:', error);
+    });
   };
 
   const updateQuantity = (index, newQuantity) => {
-    const updatedCartItems = [...cartItems];
-    updatedCartItems[index].quantity = newQuantity;
-    setCartItems(updatedCartItems);
+    const productId = cartItems[index].id;
+    // Update the product quantity in the cart on the server side
+    axios.post('http://localhost:8000/api/cart/update', {
+      productId: productId,
+      quantity: newQuantity
+    })
+    .then(response => {
+      if (response.data.message === 'Cart updated successfully') {
+        console.log("updated");
+        // If cart update is successful, update the cart items state
+        const updatedCartItems = [...cartItems];
+        updatedCartItems[index].quantity = newQuantity;
+        setCartItems(updatedCartItems);
+      } else {
+        throw new Error('Unexpected response from server');
+      }
+    })
+    .catch(error => {
+      console.error('Error updating cart:', error);
+    });
   };
 
   const toggleShowCart = () => {
