@@ -13,11 +13,10 @@ return new class extends Migration
     {
         Schema::create('tblcheckout', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('name');
             $table->string('address');
             $table->string('city');
-            $table->string('postal_code', 10);
+            $table->string('postal_code');
             $table->timestamps();
         });
     }

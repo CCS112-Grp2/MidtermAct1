@@ -24,54 +24,43 @@ const ProductPage = () => {
 
   useEffect(() => {
     // Fetch product data from the API when the component mounts
-    fetch('http://localhost:8000/api/products')
-      .then(response => response.json())
-      .then(data => setSearchResults(data))
-      .catch(error => console.error('Error fetching products:', error));
+    fetchProducts();
   }, []);
 
-  const addToCart = (product) => {
-    // Check if the product is already in the cart
-    const existingItemIndex = cartItems.findIndex(item => item.id === product.id);
-  
-    if (existingItemIndex !== -1) {
-      // If the product is already in the cart, increase its quantity
-      const updatedCartItems = [...cartItems];
-      updatedCartItems[existingItemIndex].quantity += 1;
-      setCartItems(updatedCartItems);
-    } else {
-      // If the product is not in the cart, add it with quantity 1
-      fetch('http://localhost:8000/api/cart/add', {
-        method: 'POST',
+  const fetchProducts = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get('http://localhost:8000/api/products', {
         headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          productId: product.id,
-          quantity: 1
-        })
-      })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Failed to add product to cart');
+          Authorization: `Bearer ${token}`
         }
-        return response.json();
-      })
-      .then(data => {
-        if (data && data.message === 'Product added to cart successfully') {
-          console.log('Product added to cart successfully');
-          // Update the cart items state here
-          setCartItems(prevItems => [...prevItems, { ...product, quantity: 1 }]);
-        } else {
-          console.error('Unexpected response from server:', data.message);
-        }
-      })
-      .catch(error => {
-        console.error('Error adding product to cart:', error.message);
       });
+      setSearchResults(response.data);
+    } catch (error) {
+      console.error('Error fetching products:', error);
     }
   };
-  
+
+  const addToCart = async (product) => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.post('http://localhost:8000/api/cart/add', {
+        productId: product.id,
+        quantity: 1
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      if (response.data.message === 'Product added to cart successfully') {
+        setCartItems(prevItems => [...prevItems, { ...product, quantity: 1 }]);
+      } else {
+        console.error('Unexpected response from server:', response.data.message);
+      }
+    } catch (error) {
+      console.error('Error adding product to cart:', error);
+    }
+  };
   
   const removeFromCart = (index) => {
     const newCartItems = [...cartItems];
@@ -92,10 +81,7 @@ const ProductPage = () => {
   const handleSearch = () => {
     if (searchQuery.trim() === '') {
       // Fetch product data from the API when the component mounts
-        fetch('http://localhost:8000/api/products')
-        .then(response => response.json())
-        .then(data => setSearchResults(data))
-        .catch(error => console.error('Error fetching products:', error));
+      fetchProducts();
     } else {
       // Filter products based on search query
       const results = searchResults.filter(product =>
@@ -111,11 +97,22 @@ const ProductPage = () => {
   };
 
   const handleShippingSubmit = () => {
-    axios.post('http://localhost:8000/api/users', {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    console.error('User not authenticated');
+    // Handle not authenticated case, perhaps redirect to login page
+    return;
+  }
+
+  axios.post('http://localhost:8000/api/checkout', {
       name: shippingDetails.name,
       address: shippingDetails.address,
       city: shippingDetails.city,
       postal_code: shippingDetails.postalCode // Use 'postal_code' as per the Laravel model
+    }, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
     })
     .then(response => {
       if (response.data.message === 'User created successfully') {
@@ -139,7 +136,7 @@ const ProductPage = () => {
       setShowAlert({ success: false, message: 'Error saving checkout details. Please try again.' });
       console.error('Error saving checkout details:', error);
     });
-  };  
+};
 
   return (
     <>

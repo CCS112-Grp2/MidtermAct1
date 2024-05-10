@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\ProductModel;
+use App\Models\Product;
 
 class CartController extends Controller
 {
@@ -13,7 +13,7 @@ class CartController extends Controller
         $quantity = $request->input('quantity');
 
         // Retrieve the product details based on $productId
-        $product = ProductModel::find($productId);
+        $product = Product::find($productId);
 
         // Add the product to the cart
         $cart = session()->get('cart');

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\UserModel;
+use App\Models\Checkout;
 
-class UserController extends Controller
+class CheckoutController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +27,7 @@ class UserController extends Controller
             'postal_code' => 'required'
         ]);
 
-        $user = UserModel::create($validatedData);
+        $user = Checkout::create($validatedData);
 
         return response()->json(['message' => 'User created successfully', 'user' => $user], 201);
     }
