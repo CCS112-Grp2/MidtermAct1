@@ -1,0 +1,45 @@
+/* Crud.css */
+
+/* General container styling */
+.container {
+    margin-top: 20px;
+  }
+  
+  /* Table styling */
+  .table {
+    margin-bottom: 20px;
+  }
+  
+  .table thead th {
+    background-color: #f8f9fa;
+    text-align: center;
+  }
+  
+  .table tbody td {
+    vertical-align: middle;
+  }
+  
+  /* Form styling */
+  form {
+    margin-top: 20px;
+  }
+  
+  form .form-group {
+    margin-bottom: 15px;
+  }
+  
+  form .form-control {
+    width: 100%;
+  }
+  
+  /* Button styling */
+  button {
+    margin-right: 10px;
+  }
+  
+  /* Header styling */
+  h1, h2 {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
