@@ -4,22 +4,20 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from './components/NavBar/Navbar';
 import Home from './pages/HomePage';
 import ProductPage from './pages/ProductPage';
-import RegistrationPage from './pages/RegistrationPage'; // Import the new RegistrationPage component
+import RegistrationPage from './pages/RegistrationPage';
 import Login from './pages/Login';
+import Crud from './pages/Crud'; // Import the Crud component
 import './css/App.css';
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
 
   const handleLogin = () => {
-    // Handle successful login, set authenticated state to true
     setAuthenticated(true);
   };
 
   const handleLogout = () => {
-    // Handle logout, set authenticated state to false
     setAuthenticated(false);
-    // Clear token from localStorage or sessionStorage
     localStorage.removeItem('token');
   };
 
@@ -28,16 +26,18 @@ function App() {
       <div className="app-container gradient-bg">
         <Navbar authenticated={authenticated} onLogout={handleLogout} />
         <Routes>
-          {/* Conditionally render Home based on authentication status */}
           <Route path="/" element={<Home authenticated={authenticated} />} />
           <Route path="/products" element={<ProductPage />} />
-          {/* Render login page only if not authenticated */}
           {!authenticated ? (
             <Route path="/login" element={<Login onLogin={handleLogin} />} />
           ) : (
             <Route path="/login" element={<Navigate to="/" />} />
           )}
-          <Route path="/register" element={<RegistrationPage />} /> {/* Route to the RegistrationPage component */}
+          <Route path="/register" element={<RegistrationPage />} />
+          {/* New route for the Crud component */}
+          {authenticated && (
+            <Route path="/edit" element={<Crud />} />
+          )}
         </Routes>
         <footer className="footer">
           <p>&copy; 2024 GGGHI Car Dealer. All rights reserved.</p>
