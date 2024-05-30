@@ -12,7 +12,7 @@ const RegistrationForm = ({ onRegister }) => {
 
   const handleRegister = async () => {
     try {
-      const response = await axios.post('http://localhost:8000/api/register', { name, email, password });
+      const response = await axios.post('http://127.0.0.1:8000/api/register', { name, email, password });
       // Registration successful
       setRegisterSuccess(true);
       // Call the onRegister function passed from the parent component

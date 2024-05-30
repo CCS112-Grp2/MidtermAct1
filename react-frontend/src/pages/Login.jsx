@@ -13,7 +13,7 @@ const Login = ({ onLogin, authenticated }) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:8000/api/login', { email, password });
+      const response = await axios.post('http://127.0.0.1:8000/api/login', { email, password });
       const { token } = response.data;
 
       // Store token in localStorage or session storage
