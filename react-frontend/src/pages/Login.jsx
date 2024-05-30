@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom'; // Import only Link, as Navigate is not used
+import { Link, useNavigate } from 'react-router-dom';
 import '../css/Login.css';
 
 const Login = ({ onLogin, authenticated }) => {
@@ -8,19 +8,27 @@ const Login = ({ onLogin, authenticated }) => {
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
   const [loginError, setLoginError] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       const response = await axios.post('http://127.0.0.1:8000/api/login', { email, password });
-      const { token } = response.data;
+      const { token, role } = response.data;
 
-      // Store token in localStorage or session storage
+      // Store token in localStorage
       localStorage.setItem('token', token);
 
-      // Call the onLogin function passed from the parent component
-      onLogin();
+      // Call the onLogin function passed from the parent component with the role
+      onLogin(role);
+
+      // Redirect based on the role
+      if (role === 'admin') {
+        navigate('/dashboard');
+      } else {
+        navigate('/');
+      }
     } catch (error) {
       // Handle errors, such as displaying validation errors or server errors
       if (error.response && error.response.status === 401) {
@@ -47,7 +55,6 @@ const Login = ({ onLogin, authenticated }) => {
                   Login failed. Please try again.
                 </div>
               )}
-              {/* Render the form only if not authenticated */}
               {!authenticated && (
                 <form onSubmit={handleSubmit}>
                   <div className="mb-3">

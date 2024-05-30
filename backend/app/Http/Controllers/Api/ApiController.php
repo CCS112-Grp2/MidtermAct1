@@ -18,6 +18,7 @@ class ApiController extends Controller
                 'name' => 'required',
                 'email' => 'required|email|unique:users,email',
                 'password' => 'required',
+                'role' => 'required|in:user,admin', // Validate role
             ]);
 
             if ($validateUser->fails()) {
@@ -32,6 +33,7 @@ class ApiController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password), // Hashing the password
+                'role' => $request->role, // Assign role
             ]);
 
             return response()->json([
@@ -75,7 +77,8 @@ class ApiController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'User logged in successfully',
-                'token' => $user->createToken("API TOKEN")->plainTextToken
+                'token' => $user->createToken("API TOKEN")->plainTextToken,
+                'role' => $user->role // Include user role in the response
             ], 200);
 
         } catch (\Throwable $th) {

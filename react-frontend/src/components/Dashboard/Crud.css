@@ -43,3 +43,14 @@
     text-align: center;
   }
   
+  /* Assuming Crud.css is your existing CSS file */
+.table-container {
+  max-height: calc(100vh - 300px); /* Adjust based on your layout */
+  overflow-y: auto;
+}
+
+.custom-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

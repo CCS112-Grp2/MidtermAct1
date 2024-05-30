@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, Navigate } from 'react-router-dom';
-import { RiHome2Line, RiStoreLine, RiLoginCircleLine, RiEdit2Line } from 'react-icons/ri';
+import { RiHome2Line, RiStoreLine, RiLoginCircleLine } from 'react-icons/ri';
 import './Navbar.css';
 import axios from 'axios';
 
@@ -60,13 +60,6 @@ const Navbar = ({ authenticated, onLogout }) => {
               <li className="nav-item">
                 <Link className="nav-link" to="/products">
                   <RiStoreLine className="me-1 icon" /> SHOP
-                </Link>
-              </li>
-            )}
-            {authenticated && (
-              <li className="nav-item">
-                <Link className="nav-link" to="/edit">
-                  <RiEdit2Line className="me-1 icon" /> EDIT
                 </Link>
               </li>
             )}

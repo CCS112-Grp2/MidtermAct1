@@ -1,22 +1,37 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../css/Registration.css';
 
-const RegistrationForm = ({ onRegister }) => {
+const RegistrationForm = ({ onRegister = () => {} }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
   const [registerSuccess, setRegisterSuccess] = useState(false);
 
+  const navigate = useNavigate();
+
   const handleRegister = async () => {
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/register', { name, email, password });
+      const response = await axios.post('http://127.0.0.1:8000/api/register', { 
+        name, 
+        email, 
+        password,
+        role: 'user' // Set role to 'user'
+      });
       // Registration successful
       setRegisterSuccess(true);
+      // Clear form fields
+      setName('');
+      setEmail('');
+      setPassword('');
       // Call the onRegister function passed from the parent component
       onRegister();
+      // Redirect to login after a delay
+      setTimeout(() => {
+        navigate('/login');
+      }, 2000);
     } catch (error) {
       // Handle registration errors
       console.error('Registration error:', error);
@@ -77,7 +92,7 @@ const RegistrationForm = ({ onRegister }) => {
           {/* Registration Success Alert */}
           {registerSuccess && (
             <div className="alert alert-success mt-3" role="alert">
-              Registration successful!
+              Registration successful! Redirecting to login...
             </div>
           )}
         </div>
