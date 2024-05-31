@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Table, Button, Modal, Form, Alert } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button, Table, Modal, Alert } from "react-bootstrap";
 import "./Crud.css"; // Ensure this path is correct
 
 const ManageUsers = () => {
@@ -68,32 +68,38 @@ const ManageUsers = () => {
   };
 
   return (
-    <div>
-      <h1>Manage Users</h1>
-      {showAlert && <Alert variant="success" onClose={() => setShowAlert(false)} dismissible>{alertMessage}</Alert>}
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map(user => (
-            <tr key={user.id}>
-              <td>{user.name}</td>
-              <td>{user.email}</td>
-              <td>{user.role}</td>
-              <td>
-                <Button variant="warning" onClick={() => { setEditUser(user); setShowEditModal(true); }}>Edit</Button>
-                <Button variant="danger" onClick={() => deleteUser(user.id)}>Delete</Button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+
+    <Container>
+      <Row>
+        <Col>
+          <h1>Manage Users</h1>
+          <div className="table-container">
+            <Table striped bordered hover>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Role</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {users.map(user => (
+                  <tr key={user.id}>
+                    <td>{user.name}</td>
+                    <td>{user.email}</td>
+                    <td>{user.role}</td>
+                    <td>
+                      <Button variant="warning" onClick={() => { setEditUser(user); setShowEditModal(true); }}>Edit</Button>
+                      <Button variant="danger" onClick={() => deleteUser(user.id)}>Delete</Button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </div>
+        </Col>
+      </Row>
 
       {/* Edit User Modal */}
       <Modal show={showEditModal} onHide={() => setShowEditModal(false)} className="custom-modal">
@@ -124,7 +130,7 @@ const ManageUsers = () => {
           <Button variant="primary" onClick={updateUser}>Save Changes</Button> {/* Changed function name to updateUser */}
         </Modal.Footer>
       </Modal>
-    </div>
+    </Container>
   );
 };
 

@@ -2,53 +2,66 @@
 
 /* General container styling */
 .container {
-    margin-top: 20px;
-  }
-  
-  /* Table styling */
-  .table {
-    margin-bottom: 20px;
-  }
-  
-  .table thead th {
-    background-color: #f8f9fa;
-    text-align: center;
-  }
-  
-  .table tbody td {
-    vertical-align: middle;
-  }
-  
-  /* Form styling */
-  form {
-    margin-top: 20px;
-  }
-  
-  form .form-group {
-    margin-bottom: 15px;
-  }
-  
-  form .form-control {
-    width: 100%;
-  }
-  
-  /* Button styling */
-  button {
-    margin-right: 10px;
-  }
-  
-  /* Header styling */
-  h1, h2 {
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  
-  /* Assuming Crud.css is your existing CSS file */
-.table-container {
-  max-height: calc(100vh - 300px); /* Adjust based on your layout */
-  overflow-y: auto;
+  margin-top: 20px;
 }
 
+/* Table styling */
+.table {
+  margin-bottom: 20px;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.table th,
+.table td {
+  padding: 8px;
+  text-align: left;
+}
+
+.table th {
+  background-color: #f8f9fa;
+}
+
+.table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Form styling */
+form {
+  margin-top: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-control {
+  width: 100%;
+}
+
+/* Button styling */
+button {
+  margin-right: 10px;
+}
+
+/* Header styling */
+h1,
+h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Table container styling */
+.table-container {
+  max-height: calc(100vh - 300px);
+  /* Adjust based on your layout */
+  overflow-y: auto;
+  margin-top: 10px;
+  /* Add spacing */
+}
+
+
+/* Modal styling */
 .custom-modal {
   display: flex;
   align-items: center;

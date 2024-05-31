@@ -100,7 +100,7 @@ const ManageProducts = () => {
         <Col>
           <h1>Manage Products</h1>
           {showAlert && <Alert variant="success" onClose={() => setShowAlert(false)} dismissible>{alertMessage}</Alert>}
-          <Button variant="primary" onClick={() => setShowNewModal(true)}>Add New Product</Button>
+          <Button variant="primary" onClick={() => setShowNewModal(true)} style={{ marginBottom: '10px' }}>Add New Product</Button>
           <div className="table-container">
             <Table striped bordered hover>
               <thead>

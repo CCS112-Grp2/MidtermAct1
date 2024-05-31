@@ -1,19 +1,36 @@
-/* Dashboard.css */
+/* src/Dashboard.css */
 .dashboard-container {
   display: flex;
-  height: 100vh; /* Use full height of the viewport */
+  height: 100vh;
 }
 
 .sidebar {
-  width: 250px;
-  background-color: #007bff;
+  width: 300px;
+  background-color: #2b2b2c;
   padding: 20px;
   color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.divider {
+  border-top: 2px solid #fff; /* Adjust thickness as needed */
+  margin-bottom: 15px; /* Optional: Adjust margin for spacing */
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-icon {
+  font-size: 2rem;
 }
 
 .sidebar h2 {
   font-size: 1.5rem;
-  margin-bottom: 1rem;
 }
 
 .sidebar ul {
@@ -21,23 +38,30 @@
   padding: 0;
 }
 
-.sidebar ul li {
-  margin-bottom: 0.5rem;
+h5 {
+  margin-bottom: 15px;
 }
 
-.sidebar ul li a,
-.sidebar ul li button {
+.sidebar ul li {
+  margin-bottom: 1rem;
+  /* Increased margin for better spacing */
+}
+
+.sidebar ul li a {
   text-decoration: none;
   color: #fff;
   display: flex;
   align-items: center;
   gap: 10px;
   font-size: 1rem;
+  transition: color 0.3s, background-color 0.3s; /* Smooth transition effect */
+  border-radius: 5px; /* Rounded corners */
+  padding: 8px 12px; /* Padding */
 }
 
-.sidebar ul li a:hover,
-.sidebar ul li button:hover {
-  text-decoration: underline;
+.sidebar ul li a:hover {
+  color: #356ba8; /* Change the color on hover */
+  background-color: #ffffff; /* Change the background color on hover */
 }
 
 .content {
@@ -45,12 +69,38 @@
   padding: 20px;
 }
 
-/* Add styles for icons */
 .icon {
   font-size: 1.2rem;
 }
 
-/* Add hover effect for logout button */
-.sidebar ul li button:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+.logout {
+  margin-top: auto;
+}
+
+.logout a {
+  text-decoration: none;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+  transition: color 0.3s, background-color 0.3s; /* Smooth transition effect */
+  border-radius: 5px; /* Rounded corners */
+  padding: 8px 12px; /* Padding */
+}
+
+.logout a:hover {
+  color: #356ba8; /* Change the color on hover */
+  background-color: #ffffff; /* Change the background color on hover */
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+  }
+
+  .content {
+    padding: 10px;
+  }
 }
